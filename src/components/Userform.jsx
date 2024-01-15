@@ -19,7 +19,7 @@ const Userform = (props) => {
         if (uname.length === 0 || uage.length === 0) {
             return props.isinvalidset('Please enter a valid name and age (non-empty values)')
         }
-        if(uage < 1){
+        if (uage < 1) {
             return props.isinvalidset('Please Enter a Valid Age (>0)')
         }
         const u = {
@@ -27,7 +27,14 @@ const Userform = (props) => {
             name: uname,
             age: uage
         }
-        return props.addUser(u)
+        props.addUser(u)
+        setUname((prev) => {
+            return ''
+        })
+        setUage((prev) => {
+            return ''
+        })
+
     }
     return (
         <form onSubmit={formHandler}>

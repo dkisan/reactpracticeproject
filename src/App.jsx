@@ -1,14 +1,50 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import Userform from './components/Userform'
+import Overlaycomponent from './components/Overlaycomponent'
+import Username from './components/UserName'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [isInvalid, setIsinvalid] = useState(false)
+  const [isInvalidmsg, setIsinvalidmsg] = useState('')
+  const [user, setUser] = useState([])
+  const isinvalidset = (a) => {
+    setIsinvalidmsg(() => {
+      return a
+    })
+    setIsinvalid(() => {
+      return true
+    })
+  }
+
+  const isinvalidunset = (a) => {
+    setIsinvalidmsg(() => {
+      return a
+    })
+    setIsinvalid(() => {
+      return false
+    })
+  }
+
+  const addUser = (u) => {
+    setUser((prevuser) => {
+      return [u, ...prevuser]
+    })
+  }
 
   return (
     <>
-      <h1>Practise Project</h1>
+      <div className='container'>
+        <Userform isinvalidset={isinvalidset} isinvalidunset={isinvalidunset} addUser={addUser} />
+      </div>
+      {user.length > 0 && <div className='container'>
+        {
+          user.map(u => {
+            return <Username data={u} key={u.id} />
+          })
+        }
+      </div>}
+      {isInvalid && <Overlaycomponent isinvalidunset={isinvalidunset} msg={isInvalidmsg} />}
     </>
   )
 }

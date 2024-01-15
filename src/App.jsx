@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import ReactDOM from 'react-dom'
 import './App.css'
 import Userform from './components/Userform'
 import Overlaycomponent from './components/Overlaycomponent'
@@ -44,7 +45,8 @@ function App() {
           })
         }
       </div>}
-      {isInvalid && <Overlaycomponent isinvalidunset={isinvalidunset} msg={isInvalidmsg} />}
+      {isInvalid && ReactDOM.createPortal(<Overlaycomponent isinvalidunset={isinvalidunset} msg={isInvalidmsg} />, document.getElementById('portaloverlay'))}
+      {/* {isInvalid && <Overlaycomponent isinvalidunset={isinvalidunset} msg={isInvalidmsg} />} */}
     </>
   )
 }
